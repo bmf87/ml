@@ -100,10 +100,11 @@ def missing_values_table(df, summary=True):
     # Print some summary information
     if summary:
       print(f"""
-          Row Total in dataframe: {len(df)}
-          Rows with missing values: {rows_with_missing_values}
-          Dataframe Columns: {(df.shape[1])}.
-          Dataframe Column with missing values: {mis_val_table_ren_columns.shape[0]}
+          Dataframe Summary:
+            - Total Columns: {(df.shape[1])}
+            - Total Rows: {df.shape[0]}
+            - Total Rows with missing values: {rows_with_missing_values}
+            - Total Columns with missing values: {mis_val_table_ren_columns.shape[0]}
           
         """)
 
