@@ -61,9 +61,9 @@ def create_posTags(text):
 
 # Filter text based on POS tag input
 def filter_pos(text, pos_tags):
-   output = ""
-   tmp = ""
-   for sentence in text:
+  output = ""
+  tmp = ""
+  for sentence in text:
         #print(f'sentence: {sentence}')
         for word in sentence:
             #print(f'len(word): {len(word)}')      
@@ -73,4 +73,35 @@ def filter_pos(text, pos_tags):
                         
         output += tmp
         tmp = ""
-   return output
+  return output
+
+
+# Missing Values Table
+def missing_values_table(df, summary=True):
+    # Total missing values
+    mis_val = df.isnull().sum()
+
+    # Percentage of missing values
+    mis_val_percent = 100 * df.isnull().sum() / len(df)
+
+    # Create table with results
+    mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+
+    # Rename columns
+    mis_val_table_ren_columns = mis_val_table.rename(
+      columns = {0 : 'Missing Values', 1 : '% of Total Values'})
+
+    # Sort by percent missing descending
+    mis_val_table_ren_columns = mis_val_table_ren_columns[
+      mis_val_table_ren_columns.iloc[:,1] != 0].sort_values(
+      '% of Total Values', ascending=False).round(1)
+
+    # Print some summary information
+    if summary:
+      print(f"""
+          Dataframe has {(df.shape[1])} columns.
+          Columns with missing values: {mis_val_table_ren_columns.shape[0]}
+        """)
+
+    # Return df missing info
+    return mis_val_table_ren_columns
