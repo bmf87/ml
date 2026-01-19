@@ -80,6 +80,7 @@ def filter_pos(text, pos_tags):
 def missing_values_table(df, summary=True):
     # Total missing values
     mis_val = df.isnull().sum()
+    rows_with_missing_values = df.isna().any(axis=1).sum()
 
     # Percentage of missing values
     mis_val_percent = 100 * df.isnull().sum() / len(df)
@@ -99,8 +100,11 @@ def missing_values_table(df, summary=True):
     # Print some summary information
     if summary:
       print(f"""
-          Dataframe has {(df.shape[1])} columns.
-          Columns with missing values: {mis_val_table_ren_columns.shape[0]}
+          Row Total in dataframe: {len(df)}
+          Rows with missing values: {rows_with_missing_values}
+          Dataframe Columns: {(df.shape[1])}.
+          Dataframe Column with missing values: {mis_val_table_ren_columns.shape[0]}
+          
         """)
 
     # Return df missing info
